@@ -58,3 +58,11 @@ resource "aws_iam_role_policy_attachment" "eks-practice-nodegroup-ec2-iam-policy
     role = aws_iam_role.eks-practice-nodegroup-iam-role.name
     policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
+
+output "eks-practice-cluster-iam-role-arn" {
+    value = aws_iam_role.eks-practice-cluster-iam-role.arn
+}
+
+output "eks-practice-nodegroup-iam-role-arn" {
+    value = aws_iam_role.eks-practice-nodegroup-iam-role.arn
+}
