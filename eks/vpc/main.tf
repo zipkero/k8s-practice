@@ -38,9 +38,9 @@ resource "aws_internet_gateway" "eks-practice-igw" {
     }
 }
 
-resource "aws_route_table" "eks-practice-rtb-public" {
-    vpc_id = aws_vpc.eks-practice-vpc.id
-    
+resource "aws_default_route_table" "eks-practice-rtb-public" {
+    default_route_table_id = aws_vpc.eks-practice-vpc.default_route_table_id
+
     route {
         cidr_block = "0.0.0.0/0"
         gateway_id = aws_internet_gateway.eks-practice-igw.id
@@ -52,12 +52,12 @@ resource "aws_route_table" "eks-practice-rtb-public" {
 
 resource "aws_route_table_association" "a" {
     subnet_id      = aws_subnet.eks-practice-subnet-public1.id
-    route_table_id = aws_route_table.eks-practice-rtb-public.id
+    route_table_id = aws_default_route_table.eks-practice-rtb-public.id
 }
 
 resource "aws_route_table_association" "b" {
     subnet_id      = aws_subnet.eks-practice-subnet-public2.id
-    route_table_id = aws_route_table.eks-practice-rtb-public.id
+    route_table_id = aws_default_route_table.eks-practice-rtb-public.id
 }
 
 output "vpc_id" {
